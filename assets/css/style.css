@@ -61,10 +61,10 @@ a:hover {
 }
 body {
   font-size: 75%;
-  font-family: 'Roboto', helvetica, arial, sans-serif;
+  font-family: 'Meiryo','Roboto', helvetica, arial, sans-serif;
   color: #0e3029;
   line-height: 1.5rem;
-  font-family: 'Roboto';
+  font-family: 'Meiryo','Roboto';
   font-weight: 300;
 }
 h1,
@@ -73,7 +73,7 @@ h3,
 h4 {
   color: #0e3029;
   padding: 0 0 50px 0;
-  font-family: 'Roboto';
+  font-family: 'Meiryo','Roboto';
   font-weight: 300;
 }
 h1 {
