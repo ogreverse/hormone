@@ -2,7 +2,6 @@
 <html prefix="og: http://ogp.me/ns#" xmlns:og="http://ogp.me/ns#">
   <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="https://dl.dropboxusercontent.com/u/13006854/mormone.ico"/>
     <title>
       {% if is_login %}Login
       {% elif is_home %}{{ site.author }}
@@ -11,37 +10,11 @@
       {% endif %}
       | {{ site.name }}
     </title>
+
     {{ header_meta }}
 
     <!-- css -->
-    <link rel="stylesheet" type="text/css" href="{{ static('themes/expanse/css/expanse.css')}}">
-    <style>
-        header h1,h1,h2,h3,h4,h5,h6,p{
-            color: #555555;
-            font-family:Meiryo, メイリオ, 'Lucida Grande', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
-        }
-        header h1{
-            font-weight: 300;
-        }
-        .post-content h1{
-            padding: 0;
-            font-weight: bold;
-            color: #555555;
-        }
-        h1 {
-            font-weight: normal;
-            font-size: 16px;
-        }
-        h2 {
-            font-size: 14px;
-        }
-        h3,h4,h5,h6 {
-            font-size: 12px;
-        }
-        p {
-            font-size: 12px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ assets('css/style.css') }}">
 
     <!-- standard google analytics -->
     {% if site.analytics %}
@@ -69,12 +42,12 @@
       <div class="spinner"></div>
       <div class="shadow top"></div>
       <div class="overlay"></div>
-      <img src="{{ static('themes/expanse/images/rainbow-bg.png') }}" class="rainbow" />
+      <img src="{{ assets('images/rainbow-bg.png') }}" class="rainbow" />
       <div class="container wide">
         <h1><a href="{{ site.base_url }}">{{ site.name }}</a></h1>
         {% if pages %}
         <ul class="cover-nav">
-          <li><a href="{{ site.base_url }}">■ トップ</a></li>
+          <li><a href="{{ site.base_url }}">Blog</a></li>
             {% for page in pages %}
             <li><a href="{{ page.permalink }}" class="{{ set_active(page.permalink) }}">{{ page.title }}</a></li>
             {% endfor %}
@@ -92,6 +65,44 @@
         <div class="user-avatar-hover">
           <h3>{{ site.author }}</h3>
           <p>{{ site.bio|striptags|truncate(280, false, '...') }}</p>
+          <ul class="user-social-links">
+            {% if site.twitter %}
+            <li>
+              <a href="{{ site.twitter }}" title="Twitter" target="_blank">
+                <i class="icon-twitter"></i> Twitter
+              </a>
+            </li>
+            {% endif %}
+
+            {% if site.facebook %}
+            <li>
+              <a href="{{ site.facebook }}" title="Facebook" target="_blank">
+                <i class="icon-facebook-sign"></i> Facebook
+              </a>
+            </li>
+            {% endif %}
+
+            {% if site.googleplus %}
+            <li>
+              <a href="{{ site.googleplus }}?rel=author" title="Google+" target="_blank">
+                <i class="icon-google-plus"></i> Google+
+              </a>
+            </li>
+            {% endif %}
+
+            {% if site.linkedin %}
+            <li>
+              <a href="{{ site.linkedin }}" title="LinkedIn" target="_blank">
+                <i class="icon-linkedin"></i> LinkedIn
+              </a>
+            </li>
+            {% endif %}
+            <li>
+              <a href="{{ site.atom_url }}" title="RSS" target="_blank">
+                <i class="icon-rss"></i> RSS
+              </a>
+            </li>
+          </ul>
           <ul>
             {% if theme.social.like %}<li>{{ theme.social.like }}</li>{% endif %}
             {% if theme.social.follow %}<li>{{ theme.social.follow }}</li>{% endif %}
@@ -118,10 +129,14 @@
                 {{ post.content }}
               </div>
               <a class="post-author" href="{{ site.base_url }}">
+                {% if post.author %}
                 <img src="{{ post.author.avatar }}" />
+                {% endif %}
                 <p>
+                  {% if post.author %}
                   <span class="post-author-name">{{ post.author.name }}</span>
-                  <span class="post-date">on {{ post.created_at|format_date }}</span>
+                  {% endif %}
+                  <span class="post-date">Posted on {{ post.created_at|format_date }}</span>
                 </p>
               </a>
               <div class="dots"><span></span><span></span><span></span></div>
@@ -129,12 +144,15 @@
           {% endfor %}
         </div>
 
+        {% if not is_tag %}
         {% if pagination.next or pagination.prev %}
         <div class="pagination">
           {% if pagination.prev %}<a href="{{ pagination.prev }}" class="prev">&laquo; Previous</a>{% endif %}
           {% if pagination.next %}<a href="{{ pagination.next }}" class="next">Next &raquo;</a>{% endif %}
         </div>
         {% endif %}
+        {% endif %}
+
         {% endif %}
 
       {% elif post %}
@@ -156,10 +174,14 @@
         </ul>
         {% endif %}
         <div class="post-footer">
-          <a class="post-author">
+          <a class="post-author" href="{{ site.base_url }}">
+            {% if post.author %}
             <img src="{{ post.author.avatar }}" />
+            {% endif %}
             <p>
+              {% if post.author %}
               <span class="post-author-name">{{ post.author.name }}</span>
+              {% endif %}
               <span class="post-date">Posted on {{ post.created_at|format_date }}</span>
             </p>
           </a>
@@ -224,10 +246,10 @@
 
     <!-- js -->
     <script type="text/javascript">
-      var cover = {% if site.cover_photo %}'{{ site.cover_photo }}'{% else %}"{{ static('themes/expanse/images/cover-photo-1.jpg') }}"{% endif %};
+      var cover = {% if site.cover_photo %}'{{ site.cover_photo }}'{% else %}"{{ assets('images/cover-photo-1.jpg') }}"{% endif %};
       (function(d, t) {
           var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-          g.src = "{{ static('themes/expanse/js/expanse.min.js')}}";
+          g.src = "{{ assets('js/expanse.min.js') }}";
           s.parentNode.insertBefore(g, s);
       }(document, 'script'));
     </script>
