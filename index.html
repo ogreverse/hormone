@@ -159,12 +159,12 @@
 
         <div class="post-content">
           <h1>{{ post.title }}</h1>
-          <div data-type-cleanup="true">
+          <!-- <div data-type-cleanup="true"> -->
             {{ post.content }}
             {% if post.type == 'link' or post.type == 'webclip' %}
             <p class="link-url"><i class="icon-share"></i> <a href="{{ link.url }}">{{ link.url }}</a></p>
             {% endif %}
-          </div>
+          <!-- </div> -->
         </div>
         {% if post.tags %}
         <ul class="post-tags">
